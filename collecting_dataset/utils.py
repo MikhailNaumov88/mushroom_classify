@@ -12,7 +12,6 @@ def rename_imgs(dataset_path):
     '''
     Rename images according to class
     in each directory
-
     '''
     list_species = os.listdir(dataset_path)
     for i, species in enumerate(list_species):

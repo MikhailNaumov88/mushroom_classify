@@ -1,15 +1,15 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.keys import Keys
-from urllib.parse import urlparse, quote
-import urllib.request
-import urllib.error
-from user_agent import generate_user_agent
 import logging
-import time
-import random
 import os
+import random
+import time
+import urllib.error
+import urllib.request
+from urllib.parse import urlparse
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from user_agent import generate_user_agent
+
 from config import DRIVER_PATH, DATASET_PATH
 
 
@@ -46,16 +46,16 @@ def get_image_links(query, link_file_path, num_requested=100):
         # to load next 400 images
         time.sleep(1)
         try:
-
-            driver.find_element_by_class_name("mye4qd").click()
+            driver.find_element(By.CLASS_NAME, "mye4qd").click()
         except Exception as e:
             print("Process-{0} reach the end of page or get the maximum number of requested images".format(query))
             break
 
     # find all img url
 
-    # thumbs = driver.find_elements_by_xpath('//a[@class="wXeWr islib nfEiy mM5pbd"]')
-    thumbs = driver.find_elements_by_css_selector("img.Q4LuWd")
+    # thumbs = driver.find_element(By.XPATH, '//a[@class="wXeWr islib nfEiy mM5pbd"]')
+    thumbs = driver.find_element(By.CSS_SELECTOR, 'img.Q4LuWd')
+    # thumbs.size
 
     print(len(thumbs))
     for thumb in thumbs:
@@ -65,7 +65,7 @@ def get_image_links(query, link_file_path, num_requested=100):
         except Exception as e:
             print("Error clicking one thumbnail")
 
-        url_elements = driver.find_elements_by_xpath('//img[@class="n3VNCb"]')
+        url_elements = driver.find_element(By.XPATH, '//img[@class="n3VNCb"]')
         for url_element in url_elements:
             try:
                 url = url_element.get_attribute('src')
@@ -116,14 +116,14 @@ def img_downloading(query, link_file, download_dir, prefix):
                     print('Process-{0} is sleeping'.format(query))
                     time.sleep(random.randint(4, 10))
 
-            except urllib.error.URLError as e:
-                print('URLError')
-                logging.error('URLError while downloading image {0}reason:{1}'.format(link, e.reason))
-                continue
             except urllib.error.HTTPError as e:
                 print('HTTPError')
                 logging.error(
                     'HTTPError while downloading image {0}http code {1}, reason:{2}'.format(link, e.code, e.reason))
+                continue
+            except urllib.error.URLError as e:
+                print('URLError')
+                logging.error('URLError while downloading image {0}reason:{1}'.format(link, e.reason))
                 continue
             except Exception as e:
                 print('Unexpected Error')
@@ -136,21 +136,21 @@ if __name__ == "__main__":
 
     dataset_dir = DATASET_PATH
     # Russian bird specias dataset for classification
-    species = []
-    lat_species = 'species.txt'  # файл с латинскими названиями птиц
-    with open(lat_species, 'r') as f:
-        for bird in f:
-            species.append(bird)
+    classes = []
+    ru_classes = 'classes.txt'  # file with russian mushroom names
+    with open(ru_classes, 'r') as f:
+        for mushroom in f:
+            classes.append(mushroom)
 
     # print(len(species))
     link_file_path, download_dir = make_dataset_dir(dataset_dir)
 
-    have_bird = [' '.join(x.split('_')) for x in os.listdir(download_dir)]
+    have_mushroom = [' '.join(x.split('_')) for x in os.listdir(download_dir)]
 
-    for bird in species[1:]:
-        if bird[:-1] not in have_bird:
-            link_file = get_image_links(bird, link_file_path, num_requested=401)
-            img_downloading(bird, link_file, download_dir, '0_')
+    for mushroom in classes[1:]:
+        if mushroom[:-1] not in have_mushroom:
+            link_file = get_image_links(mushroom, link_file_path, num_requested=401)
+            img_downloading(mushroom, link_file, download_dir, '0_')
 
 
 

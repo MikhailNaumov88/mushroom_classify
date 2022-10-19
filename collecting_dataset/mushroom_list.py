@@ -68,6 +68,3 @@ def get_wiki_species():
     with open('classes.txt', 'w', encoding="utf-8") as f:
         for mushroom in [*list_classes[0], *list_classes[1]]:
             f.write(mushroom + '\n')
-
-
-get_wiki_species()
