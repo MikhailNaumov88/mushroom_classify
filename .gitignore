@@ -128,7 +128,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-# unnesecary folders
+
+# unnecessary folders with images
 mushroom_dataset/
 mushroom_links/
 images/
