@@ -128,3 +128,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+# unnesecary folders
+mushroom_dataset/
+mushroom_links/
+images/
