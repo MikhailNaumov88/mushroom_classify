@@ -57,7 +57,7 @@ def get_image_links(query, link_file_path, num_requested=100):
     thumbs = driver.find_element(By.CSS_SELECTOR, 'img.Q4LuWd')
     # thumbs.size
 
-    print(len(thumbs))
+    # print(len(thumbs))
     for thumb in thumbs:
         try:
             thumb.click()

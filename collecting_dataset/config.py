@@ -1,4 +1,5 @@
-DATASET_PATH = '/home/mikhail/Documents/GitHub/mushroom_classify/mushroom_'
+DATASET_PATH = '/home/mikhail/Documents/GitHub/mushroom_classify/mushroom_dataset'
+IMG_PATH = '/home/mikhail/Documents/GitHub/mushroom_classify/images'
 
 url_edible = 'https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%A1%D1%8A%D0%B5%D0%B4%D0%BE%D0%B1%D0%BD%D1%8B%D0%B5_%D0%B3%D1%80%D0%B8%D0%B1%D1%8B'
 url_inedible = 'https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%9D%D0%B5%D1%81%D1%8A%D0%B5%D0%B4%D0%BE%D0%B1%D0%BD%D1%8B%D0%B5_%D0%B3%D1%80%D0%B8%D0%B1%D1%8B'
